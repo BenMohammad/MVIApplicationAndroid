@@ -10,7 +10,7 @@ sealed class TaskAction : MviAction {
         val filterType: TasksFilterType?
     ): TaskAction()
 
-    data class ActivateTAskAction(val task: Task): TaskAction()
-    data class CompleteTAskAction(val task: Task): TaskAction()
-    object ClearCompletedTAskAction: TaskAction()
+    data class ActivateTaskAction(val task: Task): TaskAction()
+    data class CompleteTaskAction(val task: Task): TaskAction()
+    object ClearCompletedTaskAction: TaskAction()
 }
