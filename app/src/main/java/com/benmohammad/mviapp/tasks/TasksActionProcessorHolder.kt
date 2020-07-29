@@ -8,7 +8,7 @@ import com.benmohammad.mviapp.util.schedulers.BaseSchedulerProvider
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 
-class TasksActionProcessor(
+class TasksActionProcessorHolder(
     private val tasksRepository: TasksRepository,
     private val schedulerProvider: BaseSchedulerProvider
 ) {
