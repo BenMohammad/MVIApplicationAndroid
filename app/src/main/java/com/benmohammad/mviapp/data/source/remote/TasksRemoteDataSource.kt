@@ -13,7 +13,7 @@ object TasksRemoteDataSource: TasksDataSource {
     private val tasksServiceData: MutableMap<String, Task>
 
     init {
-        tasksServiceData = LinkedHashMap()
+        tasksServiceData = LinkedHashMap(2)
         addTask("Help, Dr Leg", "RIP")
         addTask("Lionel Messi", "GOAT")
     }

@@ -63,8 +63,8 @@ open class TasksRepository private constructor(
 
     override fun getTask(taskId: String): Single<Task> {
         val cachedTask = getTaskWithId(taskId)
-        if(cachedTask == null) {
-            cachedTasks =LinkedHashMap()
+        if(cachedTask != null) {
+            return Single.just(cachedTask)
         }
 
         val localTask = getTaskWithIdFromLocalRepository(taskId)
@@ -160,7 +160,7 @@ open class TasksRepository private constructor(
     }
 
     override fun refreshTasks() {
-        cacheIsDirty
+        cacheIsDirty = true
     }
 
     override fun deleteAllTask() {
@@ -175,8 +175,8 @@ open class TasksRepository private constructor(
     }
 
     override fun deleteTask(taskId: String): Completable {
-        tasksRemoteDataSource.deleteTask(taskId)
-        taskLocalDataSource.deleteTask(taskId)
+        tasksRemoteDataSource.deleteTask(checkNotNull(taskId))
+        taskLocalDataSource.deleteTask(checkNotNull(taskId))
 
         cachedTasks!!.remove(taskId)
         return Completable.complete()
