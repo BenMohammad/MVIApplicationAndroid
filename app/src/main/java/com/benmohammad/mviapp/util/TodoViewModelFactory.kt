@@ -3,6 +3,8 @@ package com.benmohammad.mviapp.util
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.benmohammad.mviapp.addedittask.AddEditTaskActionProcessorHolder
+import com.benmohammad.mviapp.addedittask.AddEditTaskViewModel
 import com.benmohammad.mviapp.injection.Injection
 import com.benmohammad.mviapp.taskdetail.TaskDetailActionProcessorHolder
 import com.benmohammad.mviapp.taskdetail.TaskDetailViewModel
@@ -26,6 +28,13 @@ class TodoViewModelFactory private constructor(
                     Injection.provideTaskRepository(applicationContext),
                     Injection.provideSchedulerProvider())) as T
         }
+        if(modelClass == AddEditTaskViewModel::class.java) {
+            return AddEditTaskViewModel(
+                AddEditTaskActionProcessorHolder(
+                    Injection.provideTaskRepository(applicationContext),
+                    Injection.provideSchedulerProvider())) as T
+        }
+
 
         throw IllegalArgumentException("unknown model class: $modelClass")
     }
