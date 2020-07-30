@@ -1,47 +1,43 @@
-package com.benmohammad.mviapp.tasks
+package com.benmohammad.mviapp.stats
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NavUtils
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.benmohammad.mviapp.R
-import com.benmohammad.mviapp.stats.StatisticsActivity
 import com.benmohammad.mviapp.util.addFragmentToActivity
 import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.stats_act.*
 
-class TaskActivity : AppCompatActivity() {
+class StatisticsActivity: AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.tasks_act)
+        setContentView(R.layout.stats_act)
 
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.run {
-            setHomeAsUpIndicator(R.drawable.ic_menu)
+            setTitle(R.string.statistics_title)
             setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_menu)
         }
 
         drawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.setStatusBarBackground(R.color.colorPrimaryDark)
-        val navigationView = findViewById<NavigationView>(R.id.nav_view)
-        if(navigationView != null) {
-            setUpDrawerContent(navigationView)
-        }
+
+        findViewById<NavigationView>(R.id.nav_view)?.let {setUpDrawerConetnt(it)}
 
         if(supportFragmentManager.findFragmentById(R.id.contentFrame) == null) {
-            addFragmentToActivity(supportFragmentManager, TasksFragment(), R.id.contentFrame)
+            addFragmentToActivity(supportFragmentManager, StatisticsFragment(), R.id.contentFrame)
         }
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            android.R.id.home -> {
+            android.R.id.home  -> {
                 drawerLayout.openDrawer(GravityCompat.START)
                 return true
             }
@@ -50,21 +46,14 @@ class TaskActivity : AppCompatActivity() {
     }
 
 
-
-    private fun setUpDrawerContent(navigationView: NavigationView) {
+    private fun setUpDrawerConetnt(navigationView: NavigationView) {
         navigationView.setNavigationItemSelectedListener {
-            item -> when (item.itemId) {
-            R.id.list_navigation_menu_item -> {
-
-            }
-
-            R.id.statistics_navigation_menu_item -> {
-                val intent = Intent(this@TaskActivity, StatisticsActivity::class.java)
-                startActivity(intent)
-
-            } else -> {}
+            menuItem -> when(menuItem.itemId) {
+            R.id.list_navigation_menu_item -> NavUtils.navigateUpFromSameTask(this@StatisticsActivity)
+            R.id.statistics_navigation_menu_item -> {}
         }
-            item.isChecked= true
+
+            menuItem.isChecked = true
             drawerLayout.closeDrawers()
             true
         }
