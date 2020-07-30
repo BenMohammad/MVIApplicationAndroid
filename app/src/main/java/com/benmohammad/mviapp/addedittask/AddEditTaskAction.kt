@@ -4,11 +4,11 @@ import com.benmohammad.mviapp.mvibase.MviAction
 
 sealed class AddEditTaskAction: MviAction {
 
-    data class PopulateTAskAction(val taskId: String): AddEditTaskAction()
+    data class PopulateTaskAction(val taskId: String): AddEditTaskAction()
 
-    data class CreateTAskAction(val title: String, val description: String): AddEditTaskAction()
+    data class CreateTaskAction(val title: String, val description: String): AddEditTaskAction()
 
-    data class UpdateTAskAction(
+    data class UpdateTaskAction(
         val taskId: String,
         val title: String,
         val description: String

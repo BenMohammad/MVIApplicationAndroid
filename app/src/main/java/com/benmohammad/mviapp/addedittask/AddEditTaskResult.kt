@@ -5,10 +5,10 @@ import com.benmohammad.mviapp.mvibase.MviResult
 
 sealed class AddEditTaskResult: MviResult {
 
-    sealed class PopulateTAskResult: AddEditTaskResult() {
-        data class Success(val task: Task): PopulateTAskResult()
-        data class Failure(val error: Throwable): PopulateTAskResult()
-        object InFlight: PopulateTAskResult()
+    sealed class PopulateTaskResult: AddEditTaskResult() {
+        data class Success(val task: Task): PopulateTaskResult()
+        data class Failure(val error: Throwable): PopulateTaskResult()
+        object InFlight: PopulateTaskResult()
     }
 
     sealed class CreateTaskResult: AddEditTaskResult() {
