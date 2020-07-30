@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.benmohammad.mviapp.injection.Injection
+import com.benmohammad.mviapp.taskdetail.TaskDetailActionProcessorHolder
+import com.benmohammad.mviapp.taskdetail.TaskDetailViewModel
 import com.benmohammad.mviapp.tasks.TasksActionProcessorHolder
 import com.benmohammad.mviapp.tasks.TasksViewModel
 
@@ -15,6 +17,12 @@ class TodoViewModelFactory private constructor(
         if(modelClass == TasksViewModel::class.java) {
             return TasksViewModel(
                 TasksActionProcessorHolder(
+                    Injection.provideTaskRepository(applicationContext),
+                    Injection.provideSchedulerProvider())) as T
+        }
+        if(modelClass == TaskDetailViewModel::class.java) {
+            return TaskDetailViewModel(
+                TaskDetailActionProcessorHolder(
                     Injection.provideTaskRepository(applicationContext),
                     Injection.provideSchedulerProvider())) as T
         }

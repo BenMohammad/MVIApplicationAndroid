@@ -65,7 +65,7 @@ class TaskDetailActionProcessorHolder(
             }
         }
 
-    private val deleteTAskProcessor =
+    private val deleteTaskProcessor =
         ObservableTransformer<DeleteTaskAction, DeleteTaskResult> { actions ->
             actions.flatMap { action ->
                 tasksRepository.deleteTask(action.taskId)
@@ -85,7 +85,7 @@ class TaskDetailActionProcessorHolder(
                     shared.ofType(PopulateTaskAction::class.java).compose(populateTaskProcessor),
                     shared.ofType(CompleteTaskAction::class.java).compose(completeTaskProcessor),
                     shared.ofType(ActivateTaskAction::class.java).compose(activateTaskProcessor),
-                    shared.ofType(DeleteTaskAction::class.java).compose(deleteTAskProcessor))
+                    shared.ofType(DeleteTaskAction::class.java).compose(deleteTaskProcessor))
                     .mergeWith(
                         shared.filter{v -> (v !is PopulateTaskAction)
                                 && (v !is CompleteTaskAction)

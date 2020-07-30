@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.benmohammad.mviapp.R
 import com.benmohammad.mviapp.addedittask.AddEditTaskActivity
 import com.benmohammad.mviapp.mvibase.MviView
+import com.benmohammad.mviapp.taskdetail.TaskDetailActivity
 import com.benmohammad.mviapp.util.TodoViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -94,6 +95,7 @@ class TasksFragment: Fragment(), MviView<TasksIntent, TasksViewState> {
 
         val fab = requireActivity()!!.findViewById<FloatingActionButton>(R.id.fab_add_task)
         fab.setImageResource(R.drawable.ic_add)
+        fab.setOnClickListener { showAddTask() }
 
         swipeRefreshLayout = root.findViewById(R.id.refresh_layout)
         swipeRefreshLayout.setColorSchemeColors(
@@ -268,8 +270,9 @@ class TasksFragment: Fragment(), MviView<TasksIntent, TasksViewState> {
 
 
     private fun showDetailsUI(taskId: String) {
-        val intent = Intent(context, AddEditTaskActivity::class.java)
-        startActivityForResult(intent, AddEditTaskActivity.REQUEST_ADD_TASK)
+        val intent = Intent(context, TaskDetailActivity::class.java)
+        intent.putExtra(TaskDetailActivity.EXTRA_TASK_ID, taskId)
+        startActivity(intent)
     }
 
     private fun showMessage(message: String) {

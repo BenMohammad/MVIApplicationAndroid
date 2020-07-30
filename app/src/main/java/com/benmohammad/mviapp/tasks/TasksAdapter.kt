@@ -42,6 +42,7 @@ class TasksAdapter(tasks: List<Task>): BaseAdapter() {
         val task = getItem(position)
         rowView.findViewById<TextView>(R.id.title).text = task.titleForList
         val completeCB = rowView.findViewById<CheckBox>(R.id.complete)
+        completeCB.isChecked = task.completed
 
         completeCB.setOnClickListener { taskToggleSubject.onNext(task) }
         rowView.setOnClickListener { taskClickSubject.onNext(task) }
